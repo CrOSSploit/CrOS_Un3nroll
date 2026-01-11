@@ -12,7 +12,7 @@ confirm() {
 }
 
 get_cb_info() {
-  CB_INFO="$(crossystem --all 2>/dev/null)"
+  CB_INFO="$(sudo crossystem --all 2>/dev/null)"
 
   # Parse useful fields
   CB_BOARD="$(echo "$CB_INFO" | grep -E '^platform=' | cut -d= -f2)"
@@ -39,13 +39,6 @@ while true; do
 EOF
 
   echo
-  echo "Your Chromebook:"
-  echo $CB_BOARD
-  echo $CB_HWID
-  echo $CB_FWID
-  echo $CB_WP
-  echo $CB_FWTYPE
-  echo
   echo "[1] Disable State Determination/Enrollment [ONLY FOR R136+]"
   echo "[2] Change GBB Flags to 0x80b1 [WP MUST BE DISABLED]"
   echo
@@ -60,7 +53,7 @@ EOF
       echo "WARNING: I have not implemented the commands for version milestones lower than R136, so this will only work if your version is above R136!"
       if confirm; then
         echo "TIP: The Terminal will restart once this completes, so don't think something went wrong when the Terminal restarts."
-        sleep 1
+        sleep 3
         echo "Disabling State Determination..."
         echo --enterprise-enable-state-determination=never >/tmp/chrome_dev.conf
         mount --bind /tmp/chrome_dev.conf /etc/chrome_dev.conf
@@ -71,7 +64,8 @@ EOF
       fi
       ;;
     2)
-      echo "WARNING: This WILL fail if Write Protect is disabled."
+      echo "You have selected Change GBB Flags to 0x80b1."
+      echo "WARNING: This WILL fail if Write Protect is disabled!"
       sleep 1
       echo "Are you sure you want to proceed?"
       sleep 1
@@ -79,7 +73,7 @@ EOF
         echo "Changing GBB Flags to 0x80b1"
         futility gbb -s --flash --flags=0x80b1
         echo "GBB Flags have been changed to 0x80b1! Just to make sure it worked, go into Recovery, press tab, and look on the line gbb.flags"
-        sleep 5
+        sleep 10
       else
         echo "Cancelled."
         sleep 1
@@ -91,11 +85,11 @@ EOF
       ;;
     p|P)
       echo "Don't panic if your CB seems frozen!"
-      sudo shutdown
+      poweroff
       ;;
     r|R)
       echo "Don't panic if your CB seems frozen!"
-      sudo reboot
+      reboot
       ;;
     *)
       echo "Invalid option"
