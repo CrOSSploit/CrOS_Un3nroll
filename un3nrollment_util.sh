@@ -46,7 +46,7 @@ EOF
   echo $CB_WP
   echo $CB_FWTYPE
   echo
-  echo "[1] Disable State Determination/Enrollment"
+  echo "[1] Disable State Determination/Enrollment [ONLY FOR R136+]"
   echo "[2] Change GBB Flags to 0x80b1 [WP MUST BE DISABLED]"
   echo
   echo "[Q] Quit | [P] Power Off | [R] Restart"
@@ -57,6 +57,7 @@ EOF
   case "$choice" in
     1)
       echo "You have selected Disable State Determination. Proceed?"
+      echo "WARNING: I have not implemented the commands for version milestones lower than R136, so this will only work if your version is above R136!"
       if confirm; then
         echo "Disabling State Determination..."
         sleep 1
