@@ -17,7 +17,9 @@ confirm() {
 LSB_RELEASE="/etc/lsb-release"
 
 if [[ -r "$LSB_RELEASE" ]]; then
+  # shellcheck disable=SC1091
   source "$LSB_RELEASE"
+  # so then the shell doesn't piss itself or whatever
 else
   echo "ERROR: Cannot read $LSB_RELEASE"
   sleep 2
@@ -104,10 +106,9 @@ EOF
       ;;
     2)
       echo "You have selected Change GBB Flags to 0x80b1."
-      echo "WARNING: This WILL fail if Write Protect is disabled!"
-      sleep 1
+      echo "WARNING: This WILL fail if Write Protect is ENABLED!"
       echo "Are you sure you want to proceed?"
-      sleep 1
+      sleep 2
 
       if confirm; then
         echo "Changing GBB Flags to 0x80b1"
@@ -126,7 +127,7 @@ EOF
       ;;
     p|P)
       echo "Don't panic if your CB seems frozen!"
-      poweroff
+      poweroff # command skidded from mrchromebox's firmware utility script (jk)
       ;;
     r|R)
       echo "Don't panic if your CB seems frozen!"
