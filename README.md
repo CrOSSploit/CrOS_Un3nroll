@@ -30,5 +30,5 @@ sudo bash crOS_util_main.sh
 ```
 
 <p align=center>
-© CrOSSploit 2026 - Chromebooks, ChromeOS, Chrome, and Google are trademarks of Google LLC. We do _**NOT**_ and will _**NEVER**_ support using our Tools and Utilities for cheating.
+© CrOSSploit 2026 - Chromebooks, ChromeOS, Chrome, and Google are trademarks of Google LLC. We do <i>NOT</i> and will <i>NEVER</i> support using our Tools and Utilities for cheating.
 </p>
